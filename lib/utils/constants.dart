@@ -1,0 +1,1 @@
+const loginDetails = 'loginDetails';
