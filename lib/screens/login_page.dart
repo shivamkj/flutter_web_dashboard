@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:convert' show json;
 
 import 'package:flutter/material.dart';
 import 'package:web_dashboard/main.dart';
@@ -92,6 +92,7 @@ class LoginForm extends StatelessWidget {
                     final savedData = UserAuth.fromJson(map);
                     if (_formData.email == savedData.email &&
                         _formData.password == savedData.password) {
+                      App.preferences.setBool(isLoggedIn, true);
                       Navigator.of(context).pushReplacementNamed(Routes.dashBoardHome);
                     }
                   },

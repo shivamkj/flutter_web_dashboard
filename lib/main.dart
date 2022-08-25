@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:web_dashboard/screens/dashboard_home.dart';
+import 'package:web_dashboard/screens/dashboard/dashboard_home.dart';
 import 'package:web_dashboard/screens/login_page.dart';
 import 'package:web_dashboard/screens/register_page.dart';
 
@@ -19,13 +19,16 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Dashboard',
-      theme: ThemeData(primarySwatch: Colors.green),
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        canvasColor: Colors.white,
+      ),
       initialRoute: Routes.login,
       debugShowCheckedModeBanner: false,
       routes: {
         Routes.login: (_) => const LoginPage(),
         Routes.register: (_) => const RegisterPage(),
-        Routes.dashBoardHome: (_) => const DashBoardHome(),
+        Routes.dashBoardHome: (_) => const DashboardHome(),
       },
     );
   }
