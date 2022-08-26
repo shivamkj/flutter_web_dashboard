@@ -10,7 +10,7 @@ class SidebarMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 100),
+        const SizedBox(height: 40),
         for (int index = 0; index < menus.length; index++)
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),

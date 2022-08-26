@@ -1,8 +1,8 @@
 import 'dart:convert' show json;
 
 import 'package:flutter/material.dart';
-import 'package:web_dashboard/screens/dashboard/cooming_soon.dart';
-import 'package:web_dashboard/screens/dashboard/dashboard.dart';
+import 'package:web_dashboard/screens/dashboard/coming_soon.dart';
+import 'package:web_dashboard/screens/dashboard/dashboard_tab.dart';
 
 import '../../main.dart';
 import '../../modals/user.dart';
@@ -11,14 +11,14 @@ import '../../widgets/sidebar_menu.dart';
 import '../../widgets/responsive_builder.dart';
 import '../../widgets/user_profile.dart';
 
-class DashboardHome extends StatefulWidget {
-  const DashboardHome({Key? key}) : super(key: key);
+class DashboardPage extends StatefulWidget {
+  const DashboardPage({Key? key}) : super(key: key);
 
   @override
-  State<DashboardHome> createState() => _DashboardHomeState();
+  State<DashboardPage> createState() => _DashboardPageState();
 }
 
-class _DashboardHomeState extends State<DashboardHome> {
+class _DashboardPageState extends State<DashboardPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   int selectedTab = 0;
@@ -114,7 +114,7 @@ class _DashboardHomeState extends State<DashboardHome> {
 
   Widget _getTabContent({VoidCallback? openDrawer}) {
     if (selectedTab == 0) {
-      return DashBoard(onPressed: openDrawer);
+      return DashBoardTab(onPressed: openDrawer);
     } else {
       return const CoomingSoon();
     }
@@ -143,12 +143,7 @@ class _DashboardHomeState extends State<DashboardHome> {
               onSelected: (index) => setState(() => selectedTab = index),
             ),
           ),
-          const Divider(
-            indent: 20,
-            thickness: 1,
-            endIndent: 20,
-            height: 60,
-          ),
+          const Divider(indent: 20, thickness: 1, endIndent: 20, height: 20),
           const SizedBox(height: 20),
           const Spacer(),
           Padding(

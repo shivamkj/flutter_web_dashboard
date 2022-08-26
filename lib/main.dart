@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:web_dashboard/screens/dashboard/dashboard_home.dart';
+import 'package:web_dashboard/screens/dashboard/dashboard_page.dart';
 import 'package:web_dashboard/screens/login_page.dart';
+import 'package:web_dashboard/screens/payment_page.dart';
 import 'package:web_dashboard/screens/register_page.dart';
+import 'package:web_dashboard/utils/constants.dart';
 
 Future<void> main() async {
   App.preferences = await SharedPreferences.getInstance();
+  App.preferences.setInt(boughtQuantity, 10);
 
   runApp(const App());
 }
@@ -28,7 +31,8 @@ class App extends StatelessWidget {
       routes: {
         Routes.login: (_) => const LoginPage(),
         Routes.register: (_) => const RegisterPage(),
-        Routes.dashBoardHome: (_) => const DashboardHome(),
+        Routes.dashBoardHome: (_) => const DashboardPage(),
+        Routes.payment: (_) => const PaymentPage(),
       },
     );
   }
@@ -38,4 +42,5 @@ class Routes {
   static const login = '/login';
   static const register = '/regsiter';
   static const dashBoardHome = '/dashBoardHome';
+  static const payment = '/payment';
 }

@@ -11,7 +11,7 @@ class CoomingSoon extends StatelessWidget {
           children: const [
             SizedBox(height: 200),
             Text(
-              'COOMING SOON',
+              'COMING SOON',
               style: TextStyle(
                 fontSize: 36,
                 fontWeight: FontWeight.w900,

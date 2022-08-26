@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:web_dashboard/modals/user.dart';
 import 'package:web_dashboard/utils/constants.dart';
@@ -7,8 +5,8 @@ import 'package:web_dashboard/widgets/text_input.dart';
 
 import '../main.dart';
 
-class RegisterPage extends StatelessWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+class PaymentPage extends StatelessWidget {
+  const PaymentPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +25,7 @@ class RegisterPage extends StatelessWidget {
             ),
             child: Row(
               children: [
-                RegisterForm(),
+                PaymentForm(),
                 if (MediaQuery.of(context).size.width > 900)
                   Expanded(
                     child: Container(
@@ -51,14 +49,16 @@ class RegisterPage extends StatelessWidget {
   }
 }
 
-class RegisterForm extends StatelessWidget {
-  RegisterForm({Key? key}) : super(key: key);
+class PaymentForm extends StatelessWidget {
+  PaymentForm({Key? key}) : super(key: key);
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _formData = UserDetails(name: '', email: '', password: '', city: '');
 
   @override
   Widget build(BuildContext context) {
+    final toBuyquantity = App.preferences.getInt(buyQuantity)!;
+
     return Form(
       key: _formKey,
       child: Expanded(
@@ -71,36 +71,51 @@ class RegisterForm extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "Login",
+                  "Payment",
                   style: TextStyle(fontSize: 28, fontWeight: FontWeight.w900),
+                ),
+                const SizedBox(height: 18),
+                Text(
+                  "Price: ${toBuyquantity * 20}",
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
                 ),
                 const SizedBox(height: 28),
                 TextInput(
-                  'Name',
-                  'Your name',
-                  onSaved: (value) => _formData.name = value ?? '',
-                ),
-                TextInput(
-                  'Email',
-                  'abc@mail.com',
+                  'Card Holder Name',
+                  'Your Name (as wriiten on the Card)',
                   onSaved: (value) => _formData.email = value ?? '',
                 ),
                 TextInput(
-                  'Password',
-                  'your secret password',
+                  'Card Number',
+                  '1234 5678 9012 3456',
                   onSaved: (value) => _formData.password = value ?? '',
                 ),
-                TextInput(
-                  'City',
-                  'you live in',
-                  onSaved: (value) => _formData.city = value ?? '',
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextInput(
+                        'Card Expiry',
+                        'MM/YY',
+                        onSaved: (value) => _formData.city = value ?? '',
+                      ),
+                    ),
+                    const SizedBox(width: 30),
+                    Expanded(
+                      child: TextInput(
+                        'CVV',
+                        'xxx',
+                        onSaved: (value) => _formData.city = value ?? '',
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 28),
                 MaterialButton(
                   onPressed: () {
-                    _formKey.currentState!.save();
-                    App.preferences.setString(loginDetails, json.encode(_formData.toJson()));
-                    Navigator.of(context).pushReplacementNamed(Routes.login);
+                    final bought = App.preferences.getInt(boughtQuantity)!;
+                    App.preferences.setInt(boughtQuantity, bought + toBuyquantity);
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil(Routes.dashBoardHome, (route) => false);
                   },
                   minWidth: double.infinity,
                   height: 54,
@@ -108,17 +123,8 @@ class RegisterForm extends StatelessWidget {
                   color: Colors.green.shade600,
                   textColor: Colors.white,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
-                  child: const Text("Register"),
+                  child: const Text("Make payement"),
                 ),
-                const SizedBox(height: 28),
-                MaterialButton(
-                  onPressed: () => Navigator.of(context).pushNamed(Routes.login),
-                  minWidth: double.infinity,
-                  height: 54,
-                  elevation: 12,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
-                  child: const Text("Login"),
-                )
               ],
             ),
           ),
